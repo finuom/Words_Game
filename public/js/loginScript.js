@@ -54,7 +54,7 @@ function logar() {
 	var u = usuario.value;
 	senha = document.getElementById("senha");
 	var s = senha.value;
-	if(u === "" || s === ""){
+	if(u == "" || s == ""){
 		alert("Por favor, informe todas as informações");
 		return;
 	}	
@@ -98,7 +98,7 @@ function cadastrar(){
 	var s = senha.value;
 	email = document.getElementById('email');
 	var e = email.value;
-	if(u === "" || s === "" || e === ""){
+	if(u == "" || s == "" || e == ""){
 		alert("Por favor, informe todas as informações");
 		return;
 	}	
@@ -145,7 +145,7 @@ socket.on('permitir', function(){
 		inp.setAttribute("type", "text");
 		inp.setAttribute("style", "text-transform:uppercase");
 		inp.addEventListener("keyup", function(event) {
-			if (event.key === "Enter") {
+			if (event.key == "Enter") {
 				var maiusculo = inp.value.toUpperCase();
 				inp.value = '';
 				socket.emit('chutarPalavra', {palavra: maiusculo, usuario:nome_de_usuario, palavras_acertadas: palavrasAcertadas}); // emite uma mensagem junto com a letra			
@@ -213,7 +213,7 @@ socket.on('atualizarplacar', function(dados){
 	for(let i = 0; i < childPs.length; i++){
 		var childP = childPs[i];
 		console.log(childP.innerHTML);
-		if(childP.innerHTML === dados.usuario){
+		if(childP.innerHTML == dados.usuario){
 			childSpans[i].innerHTML = dados.palavras_acertadas;				
 			return;
 		}
@@ -268,7 +268,7 @@ socket.on('inicia',function inicia(dados){
 socket.on('letrasescolhidas', function (letrasEscolhidas){
 	for (let i = 0; i < palavra.length; i++){
 		for (let j = 0; j < letrasEscolhidas.length; j++){
-			if(letrasEscolhidas[j] == palavra[i] && document.getElementById(i).innerHTML === ""){					
+			if(letrasEscolhidas[j] == palavra[i] && document.getElementById(i).innerHTML == ""){					
 				document.getElementById(i).innerHTML = letrasEscolhidas[j];				
 			}		
 		}
@@ -290,7 +290,7 @@ socket.on('novaescolha', function(letra){
 	var acertosEscolha = 0;
 	if(palavra != undefined)
 		for (i = 0; i < palavra.length; i++){					
-			if(letra == palavra[i] && document.getElementById(i).innerHTML === ""){					
+			if(letra == palavra[i] && document.getElementById(i).innerHTML == ""){					
 				document.getElementById(i).innerHTML = letra;
 				acertosEscolha++;
 			}		
@@ -308,7 +308,7 @@ socket.on('novaescolha', function(letra){
 socket.on('novochutepalavra', function(chutePalavra){
 	for (i = 0; i < palavra.length; i++){	
 		for(j = 0; j < chutePalavra.length; j++){
-			if(chutePalavra[j] === palavra[i] && document.getElementById(i).innerHTML === ""){					
+			if(chutePalavra[j] == palavra[i] && document.getElementById(i).innerHTML == ""){					
 				document.getElementById(i).innerHTML = chutePalavra[j];				
 			}
 		}

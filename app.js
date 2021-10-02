@@ -118,7 +118,7 @@ io.sockets.on('connection', function(socket){
 	
 	socket.on('chutarPalavra', function(dados){		
 		var palavraEscolhidaAux = palavraEscolhida;
-		if(dados.palavra === palavraEscolhida){
+		if(dados.palavra == palavraEscolhida){
 			var aleatorio = Math.floor(Math.random() * 35) + 1;
 			console.log("Palavra(ID): " + aleatorio);
 			palavraEscolhida = palavras({id:aleatorio}).first().nome;				
@@ -129,7 +129,7 @@ io.sockets.on('connection', function(socket){
 			}			
 			for(let i in SOCKET_LIST){
 				var s = SOCKET_LIST[i];			
-				if(dados.palavra === palavraEscolhidaAux){					
+				if(dados.palavra == palavraEscolhidaAux){					
 					s.emit('novochutepalavra', palavraEscolhidaAux);
 					s.emit('adicionarPalavra', dados.palavra);
 					s.emit('fim');
@@ -178,7 +178,7 @@ io.sockets.on('connection', function(socket){
 	socket.on('disconnect',function(){   
 		var a = false;
 		for(let i in auxJogadores){
-			if(auxJogadores[i] === PLAYER_LIST[socket.id].numero){
+			if(auxJogadores[i] == PLAYER_LIST[socket.id].numero){
 				if(aux2 == Object.keys(PLAYER_LIST).length - 1){
 					aux2++;
 					proximoJogador();
