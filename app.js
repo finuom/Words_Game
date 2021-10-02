@@ -9,11 +9,10 @@ app.get('/',function(req, res) {
 app.use('/client',express.static(__dirname + '/client'));
 app.use(express.static('public'));
  
-serv.listen(3000, '0.0.0.0', function() {
-    console.log('Listening to port:  ' + 3000);
+serv.listen(3444, '0.0.0.0', function() {
+    console.log('Listening to port:  ' + 3444);
 });
 console.log("Servidor iniciado.");
-
 
 var TAFFY = require( 'taffy' );
 
@@ -54,43 +53,43 @@ var Player = function(id){
 }
 
 var io = require('socket.io')(serv,{});
-// Variável aleatoria que é usada para escolher o ID de alguma palavra na lista de palavras
+// Variável aleatória usada como indíce da próxima palavra
 var aleatorio = Math.floor(Math.random() * 35) + 1;
 console.log("Palavra(ID): " + aleatorio);
-// Variáveis utilizadas para o controle de jogadores
+// Variáveis de controle de jogadores
 var aux = 0;
 var aux2 = 0;
 var auxJogadores = [];
 var id = 0;
-// Escolhe uma palavra com base em um número aleatório
+// Escolhe uma palavra aleatória
 var palavraEscolhida = palavras({id:aleatorio}).first().nome;	
-// Guarda a dica da palavra escolhida
+// Guarda a dica da palavra
 var dica = palavras({id:aleatorio}).first().dica; 
-// Todas as letras que foram escolhidas na jogada ficam guardadas nessa estrutura 
+// Array que guarda todas as letras escolhidas escolhidas durante o jogo
 var letrasEscolhidas = [];
 
 function proximoJogador(){
-				console.log("1. Aux2:");
-				console.log(aux2);
-				
-		if(aux2 >= Object.keys(PLAYER_LIST).length - 1)
-			aux2 = 0;
-		else
-			aux2++;
+	console.log("1. Aux2:");
+	console.log(aux2);
 			
-				console.log("2. Aux2:");
-				console.log(aux2);
-				
-		console.log('Jogadores: ', auxJogadores); 
-				
-		for(let i in SOCKET_LIST){
-			for(let j in PLAYER_LIST){
-				if(i == j && PLAYER_LIST[j].numero == auxJogadores[aux2]){
-					SOCKET_LIST[i].emit('suavez');
-					console.log('Vez do jogador ' + auxJogadores[aux2]);
-				}
+	if(aux2 >= Object.keys(PLAYER_LIST).length - 1)
+		aux2 = 0;
+	else
+		aux2++;
+		
+	console.log("2. Aux2:");
+	console.log(aux2);
+			
+	console.log('Jogadores: ', auxJogadores); 
+			
+	for(let i in SOCKET_LIST){
+		for(let j in PLAYER_LIST){
+			if(i == j && PLAYER_LIST[j].numero == auxJogadores[aux2]){
+				SOCKET_LIST[i].emit('suavez');
+				console.log('Vez do jogador ' + auxJogadores[aux2]);
 			}
 		}
+	}
 }
 
 io.sockets.on('connection', function(socket){	

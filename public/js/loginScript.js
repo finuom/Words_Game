@@ -275,8 +275,9 @@ socket.on('letrasescolhidas', function (letrasEscolhidas){
 	}
 });
 
-function verifica(elem){			
-	if(minhavez == true){ 
+function verifica(elem){	
+	//minhavez = true		
+	if(1 == 1){ 
 		var letra = elem.innerHTML; 
 		socket.emit('escolher', letra); 
 	}
